@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; --shadow: 0 1px 1px rgba(20,22,28,.04), 0 10px 32px rgba(40,60,110,.10); }
+body {
+  @apply bg-bg text-ink antialiased;
+  font-feature-settings: 'tnum' 1, 'cv11' 1;
+  background:
+    radial-gradient(900px 600px at 8% -10%, #dbe8ff 0%, transparent 60%),
+    radial-gradient(800px 600px at 100% 10%, #efe4ff 0%, transparent 55%),
+    radial-gradient(900px 700px at 60% 110%, #dff5ec 0%, transparent 60%),
+    #f4f6fb;
+  background-attachment: fixed;
+}
+
+/* Liquid Glass surface: frosted, translucent, bright specular edge */
+.glass {
+  position: relative;
+  background: rgba(255,255,255,.58);
+  -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.glass::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,255,255,.65), rgba(255,255,255,0) 35%); mix-blend-mode: soft-light; }
+.glass-strong { background: rgba(255,255,255,.82); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .glass { background: rgba(255,255,255,.94); } }
+@media (prefers-reduced-transparency: reduce) { .glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: #fff; } }
+
+.input { @apply w-full rounded-xl border border-line bg-white/70 px-3 py-2 text-sm text-ink placeholder-slate-500 shadow-inner focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50; }
+.btn-primary { @apply btn bg-brand text-white shadow-[0_6px_16px_rgba(10,132,255,.28)] hover:brightness-95; }
+.btn-ghost { @apply btn border border-white/80 bg-white/60 text-slate-200 shadow-sm hover:bg-white; }
+.btn-danger { @apply btn bg-red-400 text-white hover:brightness-95; }
+.th { @apply px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-400; }
+.td { @apply px-3 py-3 text-sm; }
+@keyframes pulse2 { 50% { opacity: .45 } }
+.skeleton { animation: pulse2 1.4s ease-in-out infinite; @apply rounded-lg bg-black/10; }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
